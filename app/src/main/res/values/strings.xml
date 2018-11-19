@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JenkinsAndroidTest</string>
+    <string name="opening_message">Hello Deveopment Branch!</string>
 </resources>
