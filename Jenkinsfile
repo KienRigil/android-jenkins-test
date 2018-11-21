@@ -11,9 +11,14 @@ pipeline {
         archiveArtifacts(fingerprint: true, artifacts: 'app/build/outputs/apk/debug/*.apk')
       }
     }
-    stage('Email') {
+    stage('Test') {
       steps {
-        emailext(subject: 'Jenkins Test Email', body: 'Test body', to: 'kien@rigil.com')
+        sh './gradlew test'
+      }
+    }
+    stage('Save Test Report') {
+      steps {
+        junit 'app/build/test-results/*.xml'
       }
     }
   }
