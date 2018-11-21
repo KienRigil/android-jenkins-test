@@ -18,7 +18,7 @@ pipeline {
     }
     stage('Save Test Report') {
       steps {
-        junit 'app/build/test-results/*.xml'
+        junit 'app/build/test-results/*/*.xml'
       }
     }
   }
