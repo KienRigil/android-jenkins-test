@@ -21,5 +21,20 @@ pipeline {
         junit 'app/build/test-results/*/*.xml'
       }
     }
+    stage('Sanity Check') {
+      steps {
+        input 'Move on the release?'
+      }
+    }
+    stage('Build Release') {
+      steps {
+        sh './gradlew clean assembleRelease'
+      }
+    }
+    stage('Archive Release Artifact') {
+      steps {
+        archiveArtifacts(artifacts: 'app/build/outputs/apk/release/*.apk', fingerprint: true)
+      }
+    }
   }
 }
