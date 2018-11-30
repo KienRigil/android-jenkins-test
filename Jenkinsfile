@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage('Build Debug') {
+    stage('Debug - Build') {
       steps {
         sh './gradlew clean assembleDebug'
       }
@@ -11,28 +11,13 @@ pipeline {
         }
       }
     }
-    stage('Test') {
+    stage('Debug - Unit Test') {
       steps {
-        sh './gradlew test'
+        sh './gradlew testDebugUnitTest'
       }
       post {
         always {
           junit 'app/build/test-results/*/*.xml'
-        }
-      }
-    }
-    stage('Manual Release') {
-      steps {
-        input 'Move on the release?'
-      }
-    }
-    stage('Build Release') {
-      steps {
-        sh './gradlew clean assembleRelease'
-      }
-      post {
-        success {
-          archiveArtifacts(artifacts: 'app/build/outputs/apk/release/*.apk', fingerprint: true)
         }
       }
     }
