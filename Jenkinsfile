@@ -5,20 +5,20 @@ pipeline {
       steps {
         sh './gradlew clean assembleDebug'
       }
-    }
-    stage('Archive Debug Artifact') {
-      steps {
-        archiveArtifacts(fingerprint: true, artifacts: 'app/build/outputs/apk/debug/*.apk')
+      post {
+        success {
+          archiveArtifacts(fingerprint: true, artifacts: 'app/build/outputs/apk/debug/*.apk')
+        }
       }
     }
     stage('Test') {
       steps {
         sh './gradlew test'
       }
-    }
-    stage('Save Test Report') {
-      steps {
-        junit 'app/build/test-results/*/*.xml'
+      post {
+        always {
+          junit 'app/build/test-results/*/*.xml'
+        }
       }
     }
     stage('Sanity Check') {
@@ -30,10 +30,10 @@ pipeline {
       steps {
         sh './gradlew clean assembleRelease'
       }
-    }
-    stage('Archive Release Artifact') {
-      steps {
-        archiveArtifacts(artifacts: 'app/build/outputs/apk/release/*.apk', fingerprint: true)
+      post {
+        success {
+          archiveArtifacts(artifacts: 'app/build/outputs/apk/release/*.apk', fingerprint: true)
+        }
       }
     }
   }
