@@ -21,7 +21,7 @@ pipeline {
         }
       }
     }
-    stage('Sanity Check') {
+    stage('Manual Release') {
       steps {
         input 'Move on the release?'
       }
