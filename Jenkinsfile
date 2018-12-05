@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  options {
+    copyArtifactPermission 'android-jenkins-multiconfiguration-test'
+  }
   stages {
     stage('Debug - Build APK') {
       steps {
