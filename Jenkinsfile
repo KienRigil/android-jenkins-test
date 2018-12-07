@@ -31,7 +31,7 @@ pipeline {
     }
     stage('Release - Sign APK') {
       steps {
-        sh '$ANDROID_HOME/build-tools/28.0.3/zipalign -v -p 4 app/build/outputs/apk/release/app-release-unsigned.apk app-release-unsigned-aligned.apk'
+        sh '$ANDROID_HOME/build-tools/28.0.3/zipalign -v -p 4 app/build/outputs/apk/release/*.apk app-release-unsigned-aligned.apk'
         withCredentials([string(credentialsId: 'testKeystorePassword', variable: 'STORE_PASS'), string(credentialsId: 'keyPassword', variable: 'KEY_PASS')]) {
           sh '$ANDROID_HOME/build-tools/28.0.3/apksigner sign --ks /Users/kien/keystores/kienTestKeyStore.jks --ks-pass pass:$STORE_PASS --ks-key-alias JenkinsAndroidTest --key-pass pass:$KEY_PASS --out JenkinsAndroid-release.apk app-release-unsigned-aligned.apk'
         }
