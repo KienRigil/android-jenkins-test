@@ -2,6 +2,7 @@ pipeline {
   agent any
   options {
     copyArtifactPermission 'android-jenkins-multiconfiguration-test'
+    buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '10', daysToKeepStr: '', numToKeepStr: '10')
   }
   stages {
     stage('Debug - Build APK') {
