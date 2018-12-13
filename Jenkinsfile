@@ -12,6 +12,11 @@ pipeline {
       post {
         success {
           archiveArtifacts(fingerprint: true, artifacts: 'app/build/outputs/apk/debug/*.apk')
+          withCredentials([string(credentialsId: 'confluenceUserKien', variable: 'USER')]) {
+            sh '''
+              curl -u USER -X POST -H "X-Atlassian-Token: nocheck" -F "file=@$(ls app/build/outputs/apk/debug/*.apk)" https://rigilcorp.atlassian.net/wiki/rest/api/content/713392129/child/attachment
+            '''
+          }
         }
       }
     }
