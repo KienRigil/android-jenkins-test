@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">JenkinsAndroidTest</string>
-    <string name="opening_message">Hello there. How are you doing?</string>
+    <string name="opening_message">Test branch to not trigger jenkins</string>
 </resources>
